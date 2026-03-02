@@ -1,0 +1,1175 @@
+// =====================================================
+// ATYPINK — main.scss
+// Structure : Variables → Mixins → Reset → Base →
+//             Cursor → Grain → Nav → Hero → Marquee →
+//             Works/Carousel → About → Process →
+//             Blog → Contact → Footer → Responsive
+// =====================================================
+
+// ─────────────────────────────────────────────────────
+// 1. VARIABLES
+// ─────────────────────────────────────────────────────
+
+$black: #050505;
+$off-black: #0e0e0e;
+$dark: #141414;
+$mid: #2a2a2a;
+$gray: #4a4a4a;
+$light-gray: #8a8a8a;
+$off-white: #e8e4df;
+$white: #f5f2ee;
+$red: #c0392b;
+
+// Font stacks
+$font-display: "Bebas Neue", sans-serif;
+$font-serif: "Cormorant Garamond", serif;
+$font-mono: "Space Mono", monospace;
+
+// Transitions
+$trans-fast: 0.15s ease;
+$trans-base: 0.3s ease;
+$trans-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+// Z-index scale
+$z-cursor: 9999;
+$z-grain: 1000;
+$z-nav: 500;
+$z-mobile-nav: 490;
+
+// Grain SVG (inline data URI)
+$grain-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+
+// ─────────────────────────────────────────────────────
+// 2. MIXINS
+// ─────────────────────────────────────────────────────
+
+@mixin label {
+  font-family: $font-mono;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $gray;
+}
+
+@mixin fixed-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin underline-anim {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 100%;
+    height: 1px;
+    background: $white;
+    transition: right $trans-base;
+  }
+
+  &:hover::after {
+    right: 0;
+  }
+}
+
+// Breakpoints
+@mixin bp-md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+@mixin bp-lg {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+@mixin bp-xl {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin bp-max-sm {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 3. CSS CUSTOM PROPERTIES  (runtime values for JS)
+// ─────────────────────────────────────────────────────
+
+:root {
+  --black: #{$black};
+  --off-black: #{$off-black};
+  --dark: #{$dark};
+  --mid: #{$mid};
+  --gray: #{$gray};
+  --light-gray: #{$light-gray};
+  --off-white: #{$off-white};
+  --white: #{$white};
+}
+
+// ─────────────────────────────────────────────────────
+// 4. RESET & BASE
+// ─────────────────────────────────────────────────────
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: $black;
+  color: $off-white;
+  font-family: $font-mono;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+section {
+  position: relative;
+}
+
+// ─────────────────────────────────────────────────────
+// 5. SCROLL REVEAL
+// ─────────────────────────────────────────────────────
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 6. CUSTOM CURSOR
+// ─────────────────────────────────────────────────────
+
+.cursor-dot {
+  @include fixed-overlay;
+  width: 8px;
+  height: 8px;
+  background: $white;
+  border-radius: 50%;
+  z-index: $z-cursor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  @include fixed-overlay;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba($white, 0.5);
+  border-radius: 50%;
+  z-index: $z-cursor - 1;
+  transform: translate(-50%, -50%);
+  transition:
+    width $trans-base,
+    height $trans-base,
+    border-color $trans-base;
+
+  &.hovering {
+    width: 60px;
+    height: 60px;
+    border-color: $white;
+  }
+}
+
+.cursor-text {
+  @include fixed-overlay;
+  @include label;
+  z-index: $z-cursor - 2;
+  color: $white;
+  opacity: 0;
+  transition: opacity $trans-base;
+  transform: translate(-50%, -50%);
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 7. GRAIN OVERLAY
+// ─────────────────────────────────────────────────────
+
+.grain {
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+  z-index: $z-grain;
+  opacity: 0.045;
+  background-image: $grain-url;
+  animation: grain 0.5s steps(1) infinite;
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2%, -3%);
+  }
+  20% {
+    transform: translate(3%, 2%);
+  }
+  30% {
+    transform: translate(-1%, 4%);
+  }
+  40% {
+    transform: translate(4%, -1%);
+  }
+  50% {
+    transform: translate(-3%, 3%);
+  }
+  60% {
+    transform: translate(2%, -4%);
+  }
+  70% {
+    transform: translate(-4%, 1%);
+  }
+  80% {
+    transform: translate(1%, 3%);
+  }
+  90% {
+    transform: translate(3%, -2%);
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 8. NAVIGATION
+// ─────────────────────────────────────────────────────
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-nav;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  mix-blend-mode: difference;
+}
+
+.nav-logo {
+  font-family: $font-display;
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+  color: $white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+
+  a {
+    @include underline-anim;
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $off-white;
+    transition: color $trans-base;
+  }
+}
+
+.burger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: 4px;
+
+  span {
+    width: 24px;
+    height: 1px;
+    background: $off-white;
+    transition: $trans-base;
+  }
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: $z-mobile-nav;
+  background: $black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+
+  &.open {
+    display: flex;
+  }
+
+  a {
+    font-family: $font-display;
+    font-size: 3rem;
+    letter-spacing: 0.15em;
+    color: $off-white;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 9. HERO
+// ─────────────────────────────────────────────────────
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 40px 60px;
+  position: relative;
+  overflow: hidden;
+  background: $black;
+}
+
+.hero-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: $font-display;
+  font-size: clamp(120px, 22vw, 280px);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba($white, 0.06);
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero-line {
+  position: absolute;
+  background: rgba($white, 0.1);
+
+  &-v1 {
+    width: 1px;
+    left: 38%;
+    top: 0;
+    bottom: 0;
+  }
+  &-v2 {
+    width: 1px;
+    left: 72%;
+    top: 0;
+    bottom: 0;
+  }
+  &-h1 {
+    height: 1px;
+    left: 0;
+    right: 0;
+    top: 30%;
+  }
+}
+
+.hero-number {
+  position: absolute;
+  top: 120px;
+  right: 40px;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: $light-gray;
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 60px;
+  right: 40px;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: $gray;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  &::after {
+    content: "";
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, $gray, transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollLine {
+  0%,
+  100% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+.hero-tagline {
+  font-family: $font-serif;
+  font-style: italic;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  color: $light-gray;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-family: $font-display;
+  font-size: clamp(4rem, 13vw, 11rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: $white;
+  overflow: hidden;
+
+  .line {
+    display: block;
+    overflow: hidden;
+
+    span {
+      display: block;
+      transform: translateY(110%);
+      animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    &:nth-child(1) span {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(2) span {
+      animation-delay: 0.22s;
+    }
+    &:nth-child(3) span {
+      animation-delay: 0.34s;
+    }
+  }
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+  }
+}
+
+.hero-city {
+  margin-top: 24px;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: $gray;
+  text-transform: uppercase;
+}
+
+// ─────────────────────────────────────────────────────
+// 10. MARQUEE
+// ─────────────────────────────────────────────────────
+
+.marquee-section {
+  background: $black;
+  border-top: 1px solid $mid;
+  border-bottom: 1px solid $mid;
+  padding: 20px 0;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  animation: marquee 20s linear infinite;
+  width: max-content;
+
+  &--reverse {
+    animation-direction: reverse;
+    animation-duration: 25s;
+  }
+
+  span {
+    font-family: $font-display;
+    font-size: 1.4rem;
+    letter-spacing: 0.2em;
+    color: $gray;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .dot {
+    color: $mid;
+    font-size: 0.4rem;
+    vertical-align: middle;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 11. GALERIE / CAROUSEL
+// ─────────────────────────────────────────────────────
+
+.works {
+  padding: 120px 0;
+  background: $off-black;
+  overflow: hidden;
+}
+
+.works-header {
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+}
+
+.works-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: $light-gray;
+  text-transform: uppercase;
+  text-align: right;
+  max-width: 200px;
+  line-height: 1.8;
+}
+
+// Shared section labels
+.section-num {
+  @include label;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: $font-display;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: $white;
+}
+
+// Carousel
+.carousel {
+  display: flex;
+  gap: 2px;
+  overflow: hidden;
+  padding: 0 40px;
+  cursor: grab;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.carousel-track {
+  display: flex;
+  gap: 2px;
+  transition: transform $trans-slow;
+  will-change: transform;
+}
+
+.c-item {
+  flex-shrink: 0;
+  width: clamp(220px, 28vw, 360px);
+  aspect-ratio: 3 / 4;
+  background: $dark;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba($off-white, 0.5);
+    text-transform: uppercase;
+    z-index: 2;
+    transition: color $trans-base;
+  }
+
+  &:hover {
+    &::before {
+      color: $white;
+    }
+
+    .c-placeholder,
+    .c-img {
+      transform: scale(1.04);
+      filter: grayscale(0) contrast(1);
+    }
+  }
+}
+
+.c-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1);
+  transition:
+    filter $trans-slow,
+    transform $trans-slow;
+}
+
+.c-placeholder {
+  @include flex-center;
+  width: 100%;
+  height: 100%;
+  font-size: 4rem;
+  background: $dark;
+  filter: grayscale(1);
+  transition: transform $trans-slow;
+}
+
+.c-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba($black, 0.7) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 24px 40px 0;
+}
+
+.c-btn {
+  @include flex-center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid $mid;
+  background: transparent;
+  color: $off-white;
+  font-size: 1rem;
+  cursor: none;
+  transition:
+    border-color $trans-base,
+    background $trans-base,
+    color $trans-base;
+
+  &:hover {
+    border-color: $white;
+    background: $white;
+    color: $black;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 12. À PROPOS
+// ─────────────────────────────────────────────────────
+
+.about {
+  padding: 140px 40px;
+  background: $black;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include bp-lg {
+    grid-template-columns: 380px 1fr;
+    gap: 100px;
+  }
+}
+
+.about-portrait {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: $dark;
+  position: relative;
+  overflow: hidden;
+  margin-top: 40px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid $mid;
+    transform: translate(12px, 12px);
+    pointer-events: none;
+  }
+}
+
+.about-portrait-img {
+  @include flex-center;
+  width: 100%;
+  height: 100%;
+  font-size: 6rem;
+  filter: grayscale(1);
+}
+
+.about-quote {
+  font-family: $font-serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.5;
+  color: $off-white;
+  border-left: 1px solid $mid;
+  padding-left: 28px;
+  margin: 40px 0;
+}
+
+.about-text p {
+  font-size: 0.8rem;
+  line-height: 2;
+  color: $light-gray;
+  margin-bottom: 20px;
+  max-width: 560px;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+  border: 1px solid $mid;
+}
+
+.stat {
+  padding: 24px 20px;
+  border-right: 1px solid $mid;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.stat-n {
+  font-family: $font-display;
+  font-size: 2.5rem;
+  color: $white;
+  line-height: 1;
+  display: block;
+}
+
+.stat-l {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: $gray;
+  text-transform: uppercase;
+  margin-top: 6px;
+  display: block;
+}
+
+// ─────────────────────────────────────────────────────
+// 13. PROCESS
+// ─────────────────────────────────────────────────────
+
+.process {
+  padding: 120px 40px;
+  background: $off-black;
+}
+
+.process-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.process-steps {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 32px;
+  padding: 40px 0;
+  border-top: 1px solid $mid;
+  align-items: start;
+  transition: all $trans-base;
+
+  &:last-child {
+    border-bottom: 1px solid $mid;
+  }
+}
+
+.step-num {
+  font-family: $font-display;
+  font-size: 1.2rem;
+  color: $gray;
+  padding-top: 4px;
+}
+
+.step-title {
+  font-family: $font-serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  color: $white;
+  margin-bottom: 12px;
+}
+
+.step-text {
+  font-size: 0.75rem;
+  line-height: 2;
+  color: $gray;
+  max-width: 480px;
+}
+
+// ─────────────────────────────────────────────────────
+// 14. BLOG
+// ─────────────────────────────────────────────────────
+
+.blog {
+  padding: 120px 40px;
+  background: $black;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  margin-top: 60px;
+
+  @include bp-lg {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.blog-card {
+  background: $off-black;
+  padding: 40px;
+  border: 1px solid transparent;
+  transition: border-color $trans-base;
+  position: relative;
+  display: grid;
+  gap: 16px;
+  cursor: none;
+
+  &:hover {
+    border-color: $mid;
+
+    .blog-read {
+      color: $white;
+
+      &::after {
+        transform: translateX(8px);
+        letter-spacing: 0.1em;
+      }
+    }
+  }
+
+  // Featured card
+  &--featured {
+    background: $dark;
+
+    .blog-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    }
+
+    @include bp-lg {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 60px;
+    }
+  }
+}
+
+.blog-card-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.blog-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $gray;
+  border: 1px solid $mid;
+  padding: 4px 10px;
+}
+
+.blog-date {
+  font-size: 0.65rem;
+  color: $gray;
+  letter-spacing: 0.1em;
+}
+
+.blog-title {
+  font-family: $font-serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  color: $white;
+  line-height: 1.3;
+  font-weight: 300;
+}
+
+.blog-excerpt {
+  font-size: 0.75rem;
+  line-height: 1.9;
+  color: $light-gray;
+  max-width: 600px;
+}
+
+.blog-read {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $gray;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: color $trans-base;
+  width: fit-content;
+
+  &::after {
+    content: "——";
+    display: inline-block;
+    transition:
+      transform $trans-base,
+      letter-spacing $trans-base;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 15. CONTACT
+// ─────────────────────────────────────────────────────
+
+.contact {
+  padding: 140px 40px;
+  background: $off-black;
+  text-align: center;
+}
+
+.contact-big {
+  font-family: $font-display;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: 0.03em;
+  color: $white;
+  margin: 40px 0;
+
+  em {
+    color: transparent;
+    -webkit-text-stroke: 1px $off-white;
+    font-style: normal;
+  }
+}
+
+.contact-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: $gray;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+
+.contact-email {
+  font-family: $font-serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: $off-white;
+  border-bottom: 1px solid $mid;
+  padding-bottom: 8px;
+  transition: border-color $trans-base;
+  display: inline-block;
+
+  &:hover {
+    border-color: $white;
+  }
+}
+
+.contact-socials {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.social-item {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $gray;
+  transition: color $trans-base;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// 16. FOOTER
+// ─────────────────────────────────────────────────────
+
+footer {
+  background: $black;
+  border-top: 1px solid $mid;
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-logo {
+  font-family: $font-display;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: $off-white;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  a {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: $gray;
+    transition: color $trans-base;
+
+    &:hover {
+      color: $off-white;
+    }
+  }
+}
+
+.footer-copy {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: $gray;
+}
+
+// ─────────────────────────────────────────────────────
+// 17. RESPONSIVE
+// ─────────────────────────────────────────────────────
+
+@include bp-lg {
+  .nav-links {
+    display: flex;
+  }
+  .burger-btn {
+    display: none;
+  }
+}
+
+@include bp-max-sm {
+  nav {
+    padding: 20px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .burger-btn {
+    display: flex;
+  }
+
+  .hero {
+    padding: 0 20px 60px;
+  }
+  .hero-number {
+    display: none;
+  }
+  .hero-scroll-hint {
+    display: none;
+  }
+
+  .works {
+    padding: 80px 0;
+  }
+  .works-header {
+    padding: 0 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .carousel {
+    padding: 0 20px;
+  }
+  .carousel-controls {
+    padding: 24px 20px 0;
+  }
+
+  .about {
+    padding: 80px 20px;
+  }
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+    .stat:nth-child(3) {
+      border-right: none;
+    }
+  }
+
+  .process {
+    padding: 80px 20px;
+  }
+  .blog {
+    padding: 80px 20px;
+  }
+  .contact {
+    padding: 80px 20px;
+  }
+  .contact-big {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+
+  footer {
+    padding: 32px 20px;
+  }
+}

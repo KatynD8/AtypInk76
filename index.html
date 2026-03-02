@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATYPINK — Tatoueur</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <!-- ===== CURSOR ===== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-text" id="cursorText">View</div>
+
+    <!-- ===== GRAIN ===== -->
+    <div class="grain"></div>
+
+    <!-- ===== NAV ===== -->
+    <nav>
+      <div class="nav-logo">Atypink</div>
+      <ul class="nav-links">
+        <li><a href="#works">Galerie</a></li>
+        <li><a href="#about">À Propos</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#works" onclick="closeMobileNav()">Galerie</a>
+      <a href="#about" onclick="closeMobileNav()">À Propos</a>
+      <a href="#process" onclick="closeMobileNav()">Process</a>
+      <a href="#blog" onclick="closeMobileNav()">Blog</a>
+      <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-bg-text">ATYPINK</div>
+      <div class="hero-line hero-line-v1"></div>
+      <div class="hero-line hero-line-v2"></div>
+      <div class="hero-line hero-line-h1"></div>
+      <div class="hero-number">Tattoo Artist — Le Havre — 2024</div>
+
+      <p class="hero-tagline">L'art sous la peau</p>
+      <h1 class="hero-title">
+        <span class="line"><span>ATYP</span></span>
+        <span class="line"><span>INK'</span></span>
+      </h1>
+      <p class="hero-city">Le Havre · Sur rendez-vous</p>
+
+      <div class="hero-scroll-hint">Scroll</div>
+    </section>
+
+    <!-- ===== MARQUEE 1 ===== -->
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <span>Tatouage</span><span class="dot">◆</span> <span>Fine Line</span
+        ><span class="dot">◆</span> <span>Blackwork</span
+        ><span class="dot">◆</span> <span>Flash</span><span class="dot">◆</span>
+        <span>Sur mesure</span><span class="dot">◆</span> <span>Le Havre</span
+        ><span class="dot">◆</span> <span>Atypink</span
+        ><span class="dot">◆</span>
+        <!-- Duplicate for seamless loop -->
+        <span>Tatouage</span><span class="dot">◆</span> <span>Fine Line</span
+        ><span class="dot">◆</span> <span>Blackwork</span
+        ><span class="dot">◆</span> <span>Flash</span><span class="dot">◆</span>
+        <span>Sur mesure</span><span class="dot">◆</span> <span>Le Havre</span
+        ><span class="dot">◆</span> <span>Atypink</span
+        ><span class="dot">◆</span>
+      </div>
+    </div>
+
+    <!-- ===== GALERIE ===== -->
+    <section class="works reveal" id="works">
+      <div class="works-header">
+        <div>
+          <span class="section-num">01 — Travaux</span>
+          <h2 class="section-title">Galerie</h2>
+        </div>
+        <p class="works-sub">Chaque tatouage<br />est une première fois</p>
+      </div>
+
+      <div class="carousel" id="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="c-item" data-label="Fine Line — 2024">
+            <div class="c-placeholder">🌹</div>
+            <div class="c-overlay"></div>
+          </div>
+          <div class="c-item" data-label="Blackwork — 2024">
+            <div class="c-placeholder">🐍</div>
+            <div class="c-overlay"></div>
+          </div>
+          <div class="c-item" data-label="Géométrique — 2024">
+            <div class="c-placeholder">◆</div>
+            <div class="c-overlay"></div>
+          </div>
+          <div class="c-item" data-label="Flash — 2024">
+            <div class="c-placeholder">⚡</div>
+            <div class="c-overlay"></div>
+          </div>
+          <div class="c-item" data-label="Minimaliste — 2024">
+            <div class="c-placeholder">∞</div>
+            <div class="c-overlay"></div>
+          </div>
+          <div class="c-item" data-label="Botanique — 2024">
+            <div class="c-placeholder">🌿</div>
+            <div class="c-overlay"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="c-btn" id="cPrev">←</button>
+        <button class="c-btn" id="cNext">→</button>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE 2 ===== -->
+    <div class="marquee-section">
+      <div class="marquee-track marquee-track--reverse">
+        <span>Consultation gratuite</span><span class="dot">◆</span>
+        <span>Pièce unique</span><span class="dot">◆</span>
+        <span>Hygiène irréprochable</span><span class="dot">◆</span>
+        <span>Encres vegan</span><span class="dot">◆</span>
+        <span>Suivi post-tatouage</span><span class="dot">◆</span>
+        <!-- Duplicate for seamless loop -->
+        <span>Consultation gratuite</span><span class="dot">◆</span>
+        <span>Pièce unique</span><span class="dot">◆</span>
+        <span>Hygiène irréprochable</span><span class="dot">◆</span>
+        <span>Encres vegan</span><span class="dot">◆</span>
+        <span>Suivi post-tatouage</span><span class="dot">◆</span>
+      </div>
+    </div>
+
+    <!-- ===== À PROPOS ===== -->
+    <section class="about reveal" id="about">
+      <div class="about-left">
+        <span class="section-num">02 — Artiste</span>
+        <h2 class="section-title">À Propos</h2>
+        <div class="about-portrait">
+          <div class="about-portrait-img">🖊</div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <blockquote class="about-quote">
+          "Le tatouage n'est pas une fin en soi.<br />
+          C'est un dialogue entre la peau et l'histoire qu'elle choisit de
+          porter."
+        </blockquote>
+
+        <div class="about-text">
+          <p>
+            Atypink est un tatoueur au Havre spécialisé dans le fine line, le
+            blackwork et les compositions botaniques. Autodidacte au départ,
+            formé auprès de mentors reconnus, il développe aujourd'hui un style
+            épuré qui mêle précision technique et sensibilité poétique.
+          </p>
+          <p>
+            Chaque séance commence par une conversation. Comprendre ce que le
+            client veut garder sur sa peau pour toujours, c'est le point de
+            départ de tout projet. Le dessin vient après.
+          </p>
+          <p>
+            Travail sur rendez-vous uniquement. Flash disponibles sur demande.
+            Commandes personnalisées acceptées avec délai.
+          </p>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-n">60+</span>
+            <span class="stat-l">Pièces réalisées</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n">100%</span>
+            <span class="stat-l">Encres vegan</span>
+          </div>
+          <div class="stat">
+            <span class="stat-n">∞</span>
+            <span class="stat-l">Styles explorés</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="process reveal" id="process">
+      <div class="process-inner">
+        <span class="section-num">03 — Méthode</span>
+        <h2 class="section-title">Le Process</h2>
+
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h3 class="step-title">Consultation &amp; Brief</h3>
+              <p class="step-text">
+                On commence par se parler. Par message, en visio ou en studio.
+                L'objectif : comprendre votre vision, votre histoire, la zone de
+                placement et définir le style adapté. Gratuit, sans engagement.
+              </p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h3 class="step-title">Création du Dessin</h3>
+              <p class="step-text">
+                Je conçois un projet sur mesure. Une proposition, des
+                ajustements jusqu'à ce que le design soit juste. Vous recevez la
+                version finale 48h avant la séance.
+              </p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h3 class="step-title">La Séance</h3>
+              <p class="step-text">
+                Un espace calme, propre, discret. Du matériel neuf à chaque
+                fois. Une séance peut durer de 1h à une journée complète selon
+                le projet. La musique, vous choisissez.
+              </p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h3 class="step-title">Aftercare &amp; Suivi</h3>
+              <p class="step-text">
+                Votre tatouage ne s'arrête pas à la sortie du studio. Un guide
+                de soin complet vous est remis. Je reste disponible pour toute
+                question pendant la cicatrisation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BLOG ===== -->
+    <section class="blog reveal" id="blog">
+      <span class="section-num">04 — Réflexions</span>
+      <h2 class="section-title">Blog</h2>
+
+      <div class="blog-grid">
+        <article class="blog-card blog-card--featured reveal">
+          <div class="blog-card-header">
+            <div class="blog-card-meta">
+              <span class="blog-tag">Dossier</span>
+              <span class="blog-date">12 Novembre 2024</span>
+            </div>
+            <h3 class="blog-title">
+              Pourquoi le fine line est-il aussi exigeant qu'il en a
+              l'air&nbsp;?
+            </h3>
+          </div>
+          <div class="blog-card-body">
+            <p class="blog-excerpt">
+              Derrière la légèreté apparente du trait fin se cache une précision
+              millimétrée. Une erreur de pression, de vitesse ou d'angle, et la
+              ligne tremble, s'élargit, se fragmente. C'est le style le plus
+              proche du dessin, et le moins droit au droit à l'erreur.
+            </p>
+            <a href="#" class="blog-read">Lire l'article</a>
+          </div>
+        </article>
+
+        <article class="blog-card reveal">
+          <div class="blog-card-meta">
+            <span class="blog-tag">Conseils</span>
+            <span class="blog-date">3 Octobre 2024</span>
+          </div>
+          <h3 class="blog-title">Bien choisir l'emplacement de son tatouage</h3>
+          <p class="blog-excerpt">
+            Peau fine, zones osseuses, exposition au soleil... Tout compte. Un
+            guide pour ne pas regretter votre choix dans dix ans.
+          </p>
+          <a href="#" class="blog-read">Lire</a>
+        </article>
+
+        <article class="blog-card reveal">
+          <div class="blog-card-meta">
+            <span class="blog-tag">Culture</span>
+            <span class="blog-date">18 Septembre 2024</span>
+          </div>
+          <h3 class="blog-title">
+            Les flash tattoo&nbsp;: histoire d'un format iconique
+          </h3>
+          <p class="blog-excerpt">
+            Nés dans les salons américains des années 30, les flash sont devenus
+            un langage à part entière. Leur comeback n'est pas un hasard.
+          </p>
+          <a href="#" class="blog-read">Lire</a>
+        </article>
+
+        <article class="blog-card reveal">
+          <div class="blog-card-meta">
+            <span class="blog-tag">Soin</span>
+            <span class="blog-date">5 Août 2024</span>
+          </div>
+          <h3 class="blog-title">
+            Aftercare&nbsp;: les erreurs que tout le monde fait
+          </h3>
+          <p class="blog-excerpt">
+            Suremballer, exposer au soleil, ne pas hydrater — les mêmes erreurs
+            reviennent. Un tatouage bien soigné dure une vie.
+          </p>
+          <a href="#" class="blog-read">Lire</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact reveal" id="contact">
+      <span class="section-num">05 — Contact</span>
+      <div class="contact-big">On <em>travaille</em><br />ensemble&nbsp;?</div>
+      <p class="contact-sub">
+        Prise de rendez-vous sur demande · Réponse sous 48h
+      </p>
+      <a href="mailto:hello@atypink.fr" class="contact-email"
+        >hello@atypink.fr</a
+      >
+
+      <div class="contact-socials">
+        <a href="#" class="social-item">Instagram</a>
+        <a href="#" class="social-item">TikTok</a>
+        <a href="#" class="social-item">Pinterest</a>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <div class="footer-row">
+        <div class="footer-logo">Atypink</div>
+        <div class="footer-links">
+          <a href="#">Mentions légales</a>
+          <a href="#">CGV</a>
+          <a href="#">Politique de confidentialité</a>
+        </div>
+      </div>
+      <div class="footer-row">
+        <p class="footer-copy">
+          © 2024 Atypink — Tous droits réservés. Le Havre, France.
+        </p>
+        <p class="footer-copy">SIRET : XX XXX XXX XXXXX</p>
+      </div>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>
