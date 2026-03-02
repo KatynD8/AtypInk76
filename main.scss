@@ -1027,9 +1027,37 @@ nav {
 
 .contact-socials {
   display: flex;
-  gap: 32px;
   justify-content: center;
   margin-top: 60px;
+}
+
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid $mid;
+  border-radius: 50%;
+  transition:
+    border-color $trans-base,
+    transform $trans-base;
+
+  img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+    transition: opacity $trans-base;
+  }
+
+  &:hover {
+    border-color: $white;
+    transform: translateY(-2px);
+
+    img {
+      opacity: 1;
+    }
+  }
 }
 
 .social-item {
