@@ -241,3 +241,19 @@ document.addEventListener("DOMContentLoaded", () => {
   initCarousel();
   initParallax();
 });
+
+//toggle article blog
+document.querySelectorAll(".js-blog-card").forEach((card) => {
+  const button = card.querySelector(".blog-toggle");
+  if (!button) return;
+
+  button.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    const isOpen = card.classList.contains("is-open");
+    card.classList.toggle("is-open");
+
+    button.setAttribute("aria-expanded", String(!isOpen));
+    button.textContent = isOpen ? "Lire l’article" : "Refermer l’article";
+  });
+});

@@ -47,9 +47,7 @@ section {
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .reveal.visible {
   opacity: 1;
@@ -82,10 +80,7 @@ section {
   border-radius: 50%;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition:
-    width 0.3s ease,
-    height 0.3s ease,
-    border-color 0.3s ease;
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
 }
 .cursor-ring.hovering {
   width: 60px;
@@ -126,8 +121,7 @@ section {
 }
 
 @keyframes grain {
-  0%,
-  100% {
+  0%, 100% {
     transform: translate(0, 0);
   }
   10% {
@@ -268,8 +262,8 @@ nav {
   white-space: nowrap;
   letter-spacing: 0.05em;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   pointer-events: none;
 }
 
@@ -329,8 +323,7 @@ nav {
 }
 
 @keyframes scrollLine {
-  0%,
-  100% {
+  0%, 100% {
     transform: scaleY(0);
     transform-origin: top;
   }
@@ -478,8 +471,8 @@ nav {
   padding: 0 40px;
   cursor: grab;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .carousel:active {
   cursor: grabbing;
@@ -525,11 +518,9 @@ nav {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-  object-fit: cover;
+     object-fit: cover;
   filter: grayscale(1) contrast(1.1);
-  transition:
-    filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .c-placeholder {
@@ -569,10 +560,7 @@ nav {
   color: #e8e4df;
   font-size: 1rem;
   cursor: none;
-  transition:
-    border-color 0.3s ease,
-    background 0.3s ease,
-    color 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 .c-btn:hover {
   border-color: #f5f2ee;
@@ -730,6 +718,42 @@ nav {
   background: #050505;
 }
 
+.blog-content {
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.6s ease, opacity 0.4s ease;
+  display: grid;
+  gap: 16px;
+  color: #cfcfcf;
+}
+
+.blog-card.is-open {
+  grid-template-rows: auto auto auto 1fr auto;
+}
+.blog-card.is-open .blog-content {
+  max-height: 1000px;
+  opacity: 1;
+  margin-top: 16px;
+}
+.blog-card.is-open .blog-toggle {
+  color: #f5f2ee;
+}
+
+.blog-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 8px;
+  font: inherit;
+  color: #9a9a9a;
+  cursor: none;
+  text-align: left;
+  transition: color 0.3s ease;
+}
+.blog-toggle:hover {
+  color: #f5f2ee;
+}
+
 .blog-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -746,9 +770,10 @@ nav {
   background: #0e0e0e;
   padding: 40px;
   border: 1px solid transparent;
-  transition: border-color 0.3s ease;
+  transition: grid-template-rows 0.6s ease;
   position: relative;
   display: grid;
+  grid-template-rows: auto auto auto 0fr auto;
   gap: 16px;
   cursor: none;
 }
@@ -764,6 +789,8 @@ nav {
 }
 .blog-card--featured {
   background: #141414;
+  line-height: 1.6;
+  color: #bdbdbd;
 }
 .blog-card--featured .blog-title {
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
@@ -785,8 +812,8 @@ nav {
 }
 
 .blog-tag {
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #4a4a4a;
   border: 1px solid #2a2a2a;
@@ -829,9 +856,7 @@ nav {
 .blog-read::after {
   content: "——";
   display: inline-block;
-  transition:
-    transform 0.3s ease,
-    letter-spacing 0.3s ease;
+  transition: transform 0.3s ease, letter-spacing 0.3s ease;
 }
 
 .contact {
@@ -885,19 +910,17 @@ nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 220px;
-  height: 220px;
+  width: 240px;
+  height: 240px;
   border: 1px solid #2a2a2a;
   border-radius: 50%;
-  transition:
-    border-color 0.3s ease,
-    transform 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 .instagram-link img {
   width: 150px;
   height: 150px;
   border-radius: 5%;
-  opacity: 0.7;
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 .instagram-link:hover {
@@ -1031,4 +1054,4 @@ footer {
   footer {
     padding: 32px 20px;
   }
-} /*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
